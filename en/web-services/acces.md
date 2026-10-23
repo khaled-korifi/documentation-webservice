@@ -688,6 +688,41 @@ Array of events (excerpt; the `address`, `entite` and `vehicleEngin` fields are 
 ]
 ```
 
+#### Curl
+
+Shock events over one day:
+
+```JSON
+curl -G "https://v3.oceansystem.com/ocean/restapi/evenement/events" \
+  -H "x-auth-token: <X-AUTH-TOKEN>" \
+  --data-urlencode "customerId=123" \
+  --data-urlencode "dateDebut=22/10/2026 00:00:00 +0000" \
+  --data-urlencode "dateFin=23/10/2026 00:00:00 +0000" \
+  --data-urlencode "typeEvenements=CHOC_DETECTE"
+```
+
+"Seat belt not fastened" alerts over one hour (CAN bus faults, then filter on `numeroEve` 123):
+
+```JSON
+curl -G "https://v3.oceansystem.com/ocean/restapi/evenement/events" \
+  -H "x-auth-token: <X-AUTH-TOKEN>" \
+  --data-urlencode "customerId=123" \
+  --data-urlencode "dateDebut=22/10/2026 06:00:00 +0000" \
+  --data-urlencode "dateFin=22/10/2026 07:00:00 +0000" \
+  --data-urlencode "typeEvenements=CAN_BUS_DEFAUT" \
+  | jq '[.[] | select(.typeEvenementODirectDTO.typeEvenementOdirectDTO.numeroEve == 123)]'
+```
+
+> `jq` is only used here to filter the response on the client side; the API has no per-alert filter.
+
+List of O-Direct types available to the user (`numeroEve`, `code`):
+
+```JSON
+curl -G "https://v3.oceansystem.com/ocean/restapi/evenement/get-odirect-preferences" \
+  -H "x-auth-token: <X-AUTH-TOKEN>" \
+  --data-urlencode "customerId=123"
+```
+
 ## Retrieve Equipment Data
 
 [Prior authentication required](#authentication-via-post-request) and passing the token in the header **X-AUTH-TOKEN**

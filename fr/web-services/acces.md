@@ -831,6 +831,41 @@ Tableau d'événements (extrait ; les champs `address`, `entite` et `vehicleEngi
 ]
 ```
 
+#### Curl
+
+Événements de type choc sur une journée :
+
+```JSON
+curl -G "https://v3.oceansystem.com/ocean/restapi/evenement/events" \
+  -H "x-auth-token: <X-AUTH-TOKEN>" \
+  --data-urlencode "customerId=123" \
+  --data-urlencode "dateDebut=22/10/2026 00:00:00 +0000" \
+  --data-urlencode "dateFin=23/10/2026 00:00:00 +0000" \
+  --data-urlencode "typeEvenements=CHOC_DETECTE"
+```
+
+Alertes « ceinture non bouclée » sur une heure (défauts CAN bus, puis filtre sur `numeroEve` 123) :
+
+```JSON
+curl -G "https://v3.oceansystem.com/ocean/restapi/evenement/events" \
+  -H "x-auth-token: <X-AUTH-TOKEN>" \
+  --data-urlencode "customerId=123" \
+  --data-urlencode "dateDebut=22/10/2026 06:00:00 +0000" \
+  --data-urlencode "dateFin=22/10/2026 07:00:00 +0000" \
+  --data-urlencode "typeEvenements=CAN_BUS_DEFAUT" \
+  | jq '[.[] | select(.typeEvenementODirectDTO.typeEvenementOdirectDTO.numeroEve == 123)]'
+```
+
+> `jq` n'est utilisé ici que pour filtrer la réponse côté client ; l'API ne propose pas de filtre par alerte.
+
+Liste des types O-Direct accessibles à l'utilisateur (`numeroEve`, `code`) :
+
+```JSON
+curl -G "https://v3.oceansystem.com/ocean/restapi/evenement/get-odirect-preferences" \
+  -H "x-auth-token: <X-AUTH-TOKEN>" \
+  --data-urlencode "customerId=123"
+```
+
 ## Récupérer les données des matériels
 
 [Authentification préalable nécessaire](#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
