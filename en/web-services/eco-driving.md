@@ -424,6 +424,8 @@ post /restapi/ecoconduite/syntheseFlotte
 
 Make sure to divide by the thermal (respectively electric) distance and not by the total distance, otherwise the result is wrong for hybrid vehicles. If the distance is 0 or the consumption is `null`, the consumption per 100 km is not available.
 
+Depending on the vehicle's equipment, the cumulated consumption is either actual (reported by the telematics box or the manufacturer) or estimated from the vehicle's theoretical consumption. In the latter case, the computed consumption per 100 km matches the theoretical value set on the vehicle record.
+
 #### Responses
 
 ```application/json;charset=utf-8

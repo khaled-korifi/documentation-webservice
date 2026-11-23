@@ -424,6 +424,8 @@ post /restapi/ecoconduite/syntheseFlotte
 
 Divisez bien par la distance thermique (respectivement électrique) et non par la distance totale, sinon le résultat est faussé pour les véhicules hybrides. Si la distance vaut 0 ou si la consommation vaut `null`, la consommation au 100 km n'est pas disponible.
 
+Selon l'équipement du véhicule, la consommation cumulée est réelle (remontée par le boîtier ou le constructeur) ou estimée à partir de la consommation théorique du véhicule. Dans ce second cas, la consommation au 100 km calculée correspond à la valeur théorique renseignée sur la fiche du véhicule.
+
 #### Réponses
 
 ```application/json;charset=utf-8
