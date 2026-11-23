@@ -217,7 +217,7 @@ get /restapi/ecoAttitude/v1/get_datas
 
 #### Endpoint
 ```
-post /restapi/ecoAtecoconduitetitude/syntheseFlotte
+post /restapi/ecoconduite/syntheseFlotte
 ```
 
 #### Request Parameters
