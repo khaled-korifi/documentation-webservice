@@ -418,6 +418,12 @@ post /restapi/ecoconduite/syntheseFlotte
 * **challengeAverageByDto**: An array of objects representing the average of each row (thus the average over the entire time selection for each data). Structured similarly to challenges, the value parameter contains only one object since there is only one average per data over the time selection.
 * **challengeAverageByPeriod**: Structured similarly to challengeAverageByDto, instead of containing the average of each entity/driver/vehicle, it contains the average of all scores over each period of the time selection (e.g., if you selected vehicle scores by month for March and April 2024, then the array will contain two entries, one for each month, averaging the scores of all vehicles).
 
+**Average consumption per 100 km**: it is not returned directly, but can be computed from the cumulated fields (distances in meters):
+* L/100 km = `consommationCumuleeL` × 100,000 / `distanceParcourueThermiqueM`
+* kWh/100 km = `consommationCumuleeKWh` × 100,000 / `distanceParcourueElectriqueM`
+
+Make sure to divide by the thermal (respectively electric) distance and not by the total distance, otherwise the result is wrong for hybrid vehicles. If the distance is 0 or the consumption is `null`, the consumption per 100 km is not available.
+
 #### Responses
 
 ```application/json;charset=utf-8

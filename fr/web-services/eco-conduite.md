@@ -418,6 +418,12 @@ post /restapi/ecoconduite/syntheseFlotte
 * challengeAverageByDto: Tableau d'objet qui représente la moyenne de chaque ligne (donc la moyenne sur toute la sélection temporelle pour chaque donnée). Structuré de façon similaire à challenges, le paramètre value ne contient qu'un objet puiqu'il n'y a qu'une moyenne par donnée sur la sélection temporelle.
 * challengeAverageByPeriod: Structuré de façon similaire à challengeAverageByDto, au lieu de contenir la moyenne de chaque entité/conducteur/véhicule, il contient la moyenne de toutes les notes sur chaque période de la sélection temporelle (ex: vous avez sélectionné les notes de véhicules par mois sur Mars et Avril 2024, alors le tableau contiendra deux cases, une pour chaque mois, qui fera la moyenne des notes de tous les véhicules).
 
+**Consommation moyenne au 100 km** : elle n'est pas renvoyée directement, mais se calcule à partir des champs cumulés (distances en mètres) :
+* L/100 km = `consommationCumuleeL` × 100 000 / `distanceParcourueThermiqueM`
+* kWh/100 km = `consommationCumuleeKWh` × 100 000 / `distanceParcourueElectriqueM`
+
+Divisez bien par la distance thermique (respectivement électrique) et non par la distance totale, sinon le résultat est faussé pour les véhicules hybrides. Si la distance vaut 0 ou si la consommation vaut `null`, la consommation au 100 km n'est pas disponible.
+
 #### Réponses
 
 ```application/json;charset=utf-8
