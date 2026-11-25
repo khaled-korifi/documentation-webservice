@@ -746,6 +746,15 @@ POST /restapi/vieprivee/v1/etapeViePriveePosteriori
 
 Response : Boolean (success/failure of the operation)
 
+> **Trip too old:** if the client limits changes to previous-month trips (client parameter *VP_APOSTERIORI_MAX_DAY_FOR_PREVIOUS_MONTH_MODIFICATION*), a trip older than the previous month, or from the previous month once the limit day has passed, is rejected with **400 BAD REQUEST**:
+>
+> ```JSON
+> {
+>   "oceanStatus": "privacyTripTooOldToModify",
+>   "message": "Trip 1110000401 is too old to be modified"
+> }
+> ```
+
 #### Responses
 
 ```application/json;charset=utf-8

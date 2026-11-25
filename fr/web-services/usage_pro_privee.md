@@ -722,6 +722,15 @@ POST /restapi/vieprivee/v1/etapeViePriveePosteriori
 
 Réponse : Boolean (succès/échec de l'opération)
 
+> **Trajet trop ancien :** si le client limite la modification des trajets du mois précédent (paramètre client *VP_APOSTERIORI_MAX_DAY_FOR_PREVIOUS_MONTH_MODIFICATION*), un trajet antérieur au mois précédent, ou du mois précédent une fois le jour limite dépassé, est refusé en **400 BAD REQUEST** :
+>
+> ```JSON
+> {
+>   "oceanStatus": "privacyTripTooOldToModify",
+>   "message": "Trip 1110000401 is too old to be modified"
+> }
+> ```
+
 
 #### Réponses
 
